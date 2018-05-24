@@ -14,9 +14,9 @@ os.environ["LANG"] = "en_US.UTF-8"
 
 def scroll(n,i):
 
-    return "window.scrollTo(0,(document.body.scrollHeight/{0})*{1}*80);".format(n,i)
+    return "window.scrollTo(0,(document.body.scrollHeight/{0})*{1}*100);".format(n,i)
 
-
+def comic(url):
     comics={}
     comic_url=[]
     driver = selenium.webdriver.Chrome()
@@ -33,7 +33,18 @@ def scroll(n,i):
         s = scroll(n,i)
         print(s)
         driver.execute_script(s)
-        time.sleep(random.randint(1, 10))
+        random_time = random.randint(1, 3)
+        print (random_time)
+        time.sleep(random_time)
+    n = 40
+    for i in range(0,n+1):
+        s = scroll(n,i)
+        print(s)
+        driver.execute_script(s)
+        random_time = random.randint(1, 2)
+        print (random_time)
+        time.sleep(random_time)
+
 
 
     content=driver.page_source
@@ -77,7 +88,7 @@ def scroll(n,i):
 
 
 def download(comics):
-    #directory='d:\\manhua\\'+directory
+
     title=comics['title']
     urls=comics['url']
     directory='/Users/cube.z/Hello_world/GB/'+title
@@ -99,12 +110,16 @@ def download(comics):
         os.mkdir(directory)
         #     print ('Downloding '+directory+'.....Please Waiting')
         for download_link in urls:
-            time.sleep(random.randint(1, 10))
+            random_time = random.randint(1, 3)
+            print (random_time)
+            time.sleep(random_time)
             fname=directory+'/'+str(urls.index(download_link)+1)+'.png'
             if os.path.exists(fname):
                 #pass
                 print ('File '+fname+' is already exists,SKIP......')
             elif 'gif' in download_link:
+                print ("Wrong Link")
+            elif 'data:image' in download_link:
                 print ("Wrong Link")
 
 
@@ -120,7 +135,7 @@ if __name__=="__main__":
 
     url='http://ac.tc.qq.com/store_file_download?buid=15017&uin=1422363399&dir_path=/&name=27_20_56_3faad5b60275c2829819a8c41cb0a919_953.ori'
 
-    for i in range(50,50):
+    for i in range(143,157):
         url='http://ac.qq.com/ComicView/index/id/536332/cid/'+str(i)
 
         print ('Now Analyzing  Chapter '+ str(i)+',waiting for 60 seconds')
